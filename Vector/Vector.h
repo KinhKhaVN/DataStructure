@@ -5,6 +5,7 @@
 #include <cstring>
 #include <iostream>
 #include <cstdlib>
+#include <stdexcept>
 
 #define DEFAULT_CAPACITY 5
 #define FOR(i, size) for (size_t i = (0); i < (size); i++)
@@ -28,6 +29,7 @@ class Vector
     void fill(T value);
     template <class Iterator>
     void assign(Iterator start, Iterator end);
+    T at(size_t index);
     void Info();
     void Print();
 
@@ -110,6 +112,21 @@ void Vector<T>::Print()
   putchar('\n');
 }
 
+template <class T>
+T Vector<T>::at(size_t index)
+{
+  try {
 
+    if (index >= size || index < 0)
+      throw "Out of range!";
+    return data[index];
+
+  } catch (const char * error) {
+
+    std::cerr << "Error: " << error << '\n';
+    std::cerr << "Index: " << index << '\n';
+    return -1;
+  }
+}
 
 #endif
