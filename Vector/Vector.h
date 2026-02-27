@@ -5,6 +5,7 @@
 #include <cstring>
 #include <iostream>
 #include <cstdlib>
+#include <new>
 #include <stdexcept>
 
 #define DEFAULT_CAPACITY 5
@@ -29,9 +30,19 @@ class Vector
     void fill(T value);
     template <class Iterator>
     void assign(Iterator start, Iterator end);
-    T at(size_t index);
+    T & at(size_t index);
+    T & at(size_t index) const ;
+    T & front();
+    T & front() const ;
+    T & back();
+    T & back() const ;
+    T * begin();
+    T * end();
     void Info();
     void Print();
+
+    Vector& operator = (T & value);
+    Vector& operator = (const T & value);
 
 };
 
@@ -113,11 +124,11 @@ void Vector<T>::Print()
 }
 
 template <class T>
-T Vector<T>::at(size_t index)
+T & Vector<T>::at(size_t index)
 {
   try {
 
-    if (index >= size || index < 0)
+    if (index >= size)
       throw "Out of range!";
     return data[index];
 
@@ -128,5 +139,48 @@ T Vector<T>::at(size_t index)
     return -1;
   }
 }
+
+template <class T>
+T & Vector<T>::back()
+{
+  try {
+    return data[size - 1];
+  } catch (std::bad_alloc error) {
+    std::cerr << error.what() << '\n';
+  }
+}
+
+template <class T>
+T & Vector<T>::front()
+{
+  try {
+    return data[0];
+  } catch (std::bad_alloc error) {
+    std::cerr << error.what() << '\n';
+  }
+}
+
+
+template <class T>
+T * Vector<T>::begin()
+{
+  try {
+    return &data[0];
+  } catch (std::bad_alloc error) {
+    std::cerr << error.what() << '\n';
+  }
+}
+
+template <class T>
+T * Vector<T>::end()
+{
+  try {
+    return &data[size - 1];
+  } catch (std::bad_alloc error) {
+    std::cerr << error.what() << '\n';
+  }
+}
+
+
 
 #endif
