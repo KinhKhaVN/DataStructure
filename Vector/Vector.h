@@ -23,19 +23,18 @@ class Vector
     Vector(T & value);
     Vector(const T & value);
     Vector(size_t n, T value);
-    Vector(Vector & other);
     Vector(const Vector & other);
     ~Vector();
 
-    void fill(T value);
+    void fill(const T & value);
     template <class Iterator>
     void assign(Iterator start, Iterator end);
     T & at(size_t index);
-    T & at(size_t index) const ;
+    const T & at(size_t index) const ;
     T & front();
-    T & front() const ;
+    const T & front() const ;
     T & back();
-    T & back() const ;
+    const T & back() const ;
     T * begin();
     T * end();
     void Info();
@@ -58,7 +57,6 @@ Vector<T>::Vector()
   size = 0;
   capacity = DEFAULT_CAPACITY;
   data = (T*) malloc(capacity * sizeof(T));
-  fill(0);
 }
 
 template <class T>
@@ -71,26 +69,21 @@ Vector<T>::Vector(size_t n, T value)
 }
 
 template <class T>
-Vector<T>::Vector(Vector & other)
-{
-  capacity = other.capacity;
-  size = other.size;
-  data = (T*) malloc(capacity * sizeof(T));
-  fill(other.data[0]);
-}
-
-template <class T>
 Vector<T>::Vector(const Vector & other)
 {
   capacity = other.capacity;
   size = other.size;
   data = (T*) malloc(capacity * sizeof(T));
-  fill(other.data[0]);
+
+  FOR(i, size)
+  {
+    data[i] = other.data[i];
+  }
 }
 
 
 template <class T>
-void Vector<T>::fill(T value)
+void Vector<T>::fill(const T &value)
 {
   FOR(i, size)
     data[i] = value;
@@ -126,59 +119,50 @@ void Vector<T>::Print()
 template <class T>
 T & Vector<T>::at(size_t index)
 {
-  try {
+  return data[index];
 
-    if (index >= size)
-      throw "Out of range!";
-    return data[index];
+}
 
-  } catch (const char * error) {
-
-    std::cerr << "Error: " << error << '\n';
-    std::cerr << "Index: " << index << '\n';
-    return -1;
-  }
+template <class T>
+const T & Vector<T>::at(size_t index) const
+{
+  return data[index];
 }
 
 template <class T>
 T & Vector<T>::back()
 {
-  try {
-    return data[size - 1];
-  } catch (std::bad_alloc error) {
-    std::cerr << error.what() << '\n';
-  }
+  return data[size - 1];
+}
+
+template <class T>
+const T & Vector<T>::back() const
+{
+  return data[size - 1];
 }
 
 template <class T>
 T & Vector<T>::front()
 {
-  try {
-    return data[0];
-  } catch (std::bad_alloc error) {
-    std::cerr << error.what() << '\n';
-  }
+  return data[0];
 }
 
+template <class T>
+const T & Vector<T>::front() const
+{
+  return data[0];
+}
 
 template <class T>
 T * Vector<T>::begin()
 {
-  try {
-    return &data[0];
-  } catch (std::bad_alloc error) {
-    std::cerr << error.what() << '\n';
-  }
+  return &data[0];
 }
 
 template <class T>
 T * Vector<T>::end()
 {
-  try {
-    return &data[size - 1];
-  } catch (std::bad_alloc error) {
-    std::cerr << error.what() << '\n';
-  }
+  return &data[size];
 }
 
 
