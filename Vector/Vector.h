@@ -29,6 +29,9 @@ class Vector
     void fill(const T & value);
     template <class Iterator>
     void assign(Iterator start, Iterator end);
+    void clear();
+
+    T * getData();
     T & at(size_t index);
     const T & at(size_t index) const ;
     T & front();
@@ -37,6 +40,9 @@ class Vector
     const T & back() const ;
     T * begin();
     T * end();
+
+    void push_back(const T & value);
+    void pop_back();
     void Info();
     void Print();
 
@@ -74,11 +80,7 @@ Vector<T>::Vector(const Vector & other)
   capacity = other.capacity;
   size = other.size;
   data = (T*) malloc(capacity * sizeof(T));
-
-  FOR(i, size)
-  {
-    data[i] = other.data[i];
-  }
+  fill(other.data[0]);
 }
 
 
@@ -165,6 +167,37 @@ T * Vector<T>::end()
   return &data[size];
 }
 
+template <class T>
+void Vector<T>::clear()
+{
+  fill(0);
+  size = 0;
+}
 
+template <class T>
+T * Vector<T>::getData()
+{
+  return data;
+}
+
+template <class T>
+void Vector<T>::push_back(const T & value)
+{
+  if (size == capacity)
+  {
+    size_t newCapacity = capacity + 2;
+    T* newData = (T *) malloc(newCapacity);
+
+    FOR(i, size)
+      newData[i] = data[i];
+
+    capacity = newCapacity;
+    data = newData;
+    free(newData);
+  }
+
+  data[size] = value;
+  size++;
+}
 
 #endif
