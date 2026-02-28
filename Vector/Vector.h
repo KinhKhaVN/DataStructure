@@ -1,6 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+#include <cstddef>
 #include <cstdio>
 #include <cstring>
 #include <iostream>
@@ -9,12 +10,16 @@
 #include <stdexcept>
 
 #define DEFAULT_CAPACITY 5
+#define MAX_SIZE INT_MAX
 #define FOR(i, size) for (size_t i = (0); i < (size); i++)
+#define FOR_ALL(i, a, b) for (size_t i = (a); i < (b); i++)
+#define FORR(i, a, b) for (size_t i = b; i >= a; i--)
 
 template <class T>
 class Vector
 {
   public:
+    size_t maxSize = MAX_SIZE;
     size_t capacity;
     size_t size;
     T * data;
@@ -30,6 +35,9 @@ class Vector
     template <class Iterator>
     void assign(Iterator start, Iterator end);
     void clear();
+    size_t max_size();
+    size_t getSize();
+    bool empty();
 
     T * getData();
     T & at(size_t index);
@@ -43,6 +51,10 @@ class Vector
 
     void push_back(const T & value);
     void pop_back();
+    void erase(size_t index);
+    void shiftLeft(size_t index);
+    void insert(size_t index, const T & value);
+    void shiftRight(size_t index);
     void Info();
     void Print();
 
@@ -199,5 +211,72 @@ void Vector<T>::push_back(const T & value)
   data[size] = value;
   size++;
 }
+
+template <class T>
+void Vector<T>::pop_back()
+{
+  data[size - 1] = 0;
+  size--;
+}
+
+template <class T>
+size_t Vector<T>::max_size()
+{
+  return maxSize;
+}
+
+template <class T>
+size_t Vector<T>::getSize()
+{
+  return size;
+}
+
+template <class T>
+bool Vector<T>::empty()
+{
+  return size == 0;
+}
+
+template <class T>
+void Vector<T>::shiftLeft(size_t index)
+{
+  FOR_ALL(i, index, size - 1)
+    data[i] = data[i + 1];
+}
+
+template <class T>
+void Vector<T>::erase(size_t index)
+{
+  shiftLeft(index);
+  data[size - 1] = 0;
+  size--;
+}
+
+template <class T>
+void Vector<T>::shiftRight(size_t index)
+{
+  FORR(i, index, size)
+    data[i + 1] = data[i];
+}
+
+template <class T>
+void Vector<T>::insert(size_t index, const T & value)
+{
+  auto needToReallocate = [&] () -> bool
+  {
+    return size == capacity;
+  };
+
+  if (needToReallocate())
+  {
+    capacity += 2;
+    realloc(data, capacity);
+  }
+
+  shiftRight(index);
+  data[index] = value;
+  size++;
+}
+
 
 #endif
