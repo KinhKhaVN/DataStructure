@@ -8,6 +8,7 @@ class DSU
   public:
     int * id;
     int * size;
+    int * lab;
   public:
     DSU(int n);
 

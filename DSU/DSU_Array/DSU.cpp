@@ -9,6 +9,7 @@ DSU::DSU(int n)
 {
   id = new int[n];
   size = new int[n];
+  lab = new int[n];
   
   FOR(i, n)
     makeSet(i);
@@ -16,13 +17,12 @@ DSU::DSU(int n)
 
 void DSU::makeSet(int i)
 {
-  id[i] = i;
-  size[i] = 1;
+  lab[i] = -1;
 }
 
 int DSU::Find(int i)
 {
-  return i == id[i] ? i : id[i] = Find(id[i]);
+  return lab[i] < 0 ? i : lab[i] = Find(lab[i]);
 }
 
 void DSU::Union(int p, int q)
@@ -33,17 +33,17 @@ void DSU::Union(int p, int q)
   if (i == j)
     return;
 
-  if (size[i] < size[j])
+  if (lab[i] < lab[j])
     std::swap(i, j);
 
-  id[j] = i;
-  size[i] += size[j];
+  lab[j] = i;
+  lab[i] += lab[j];
 }
 
 void DSU::Print(int n)
 {
   FOR(i, n)
-    std::cout << id[i] << " ";
+    std::cout << lab[i] << " ";
 
   putchar('\n');
 
