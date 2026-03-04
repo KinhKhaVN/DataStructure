@@ -22,9 +22,7 @@ void DSU::makeSet(int i)
 
 int DSU::Find(int i)
 {
-  while (id[i] != i) i = id[i];
-
-  return i;
+  return i == id[i] ? i : id[i] = Find(id[i]);
 }
 
 void DSU::Union(int p, int q)
