@@ -15,6 +15,9 @@ class DSU
     void makeSet(int i);
     void Union(int p, int q);
     void Print(int n);
+    void printVertexInComponent(int root[], int rootCount, int n);
+    
+    bool sameComponent(int p, int q);
 };
 
 

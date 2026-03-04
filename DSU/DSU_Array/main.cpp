@@ -1,6 +1,6 @@
 #include <cstdio>
+#include <ios>
 #include <iostream>
-#include <set>
 
 #include "DSU.h"
 
@@ -28,13 +28,29 @@ int main () {
 
   int numberOfComponents = 0;
 
-  FOR(i, n)
-    if (dsu.id[i] == i)
-      numberOfComponents++;
+  int root[n];
+  int rootCount= 0;
 
+  FOR(i, n)
+  {
+    if (dsu.id[i] == i)
+    {
+      numberOfComponents++;
+      root[rootCount++] = i;
+    }
+  }
   std::cout << "Number of Components: " << numberOfComponents;
 
   putchar('\n');
 
-  return 20;
+  FOR(i, rootCount)
+    std::cout << root[i] << " ";
+
+  putchar('\n');
+
+  dsu.printVertexInComponent(root, rootCount, n);
+
+
+
+  return 0;
 }

@@ -51,4 +51,21 @@ void DSU::Print(int n)
 
 }
 
+bool DSU::sameComponent(int p, int q)
+{
+  return Find(p) == Find(q);
+}
 
+void DSU::printVertexInComponent(int root[], int rootCount, int n)
+{
+  FOR(i, rootCount)
+  {
+    std::cout << "Component " << i + 1 << ": ";
+    FOR(j, n)
+    {
+      if (root[i] == id[j])
+        std::cout << j << " ";
+    }
+    putchar('\n');
+  }
+}
