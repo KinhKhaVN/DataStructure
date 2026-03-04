@@ -11,21 +11,20 @@ int main () {
 
   DSU dsu(n);
 
-  dsu.Print(n);
+//  dsu.Print(n);
 
   dsu.Union(0, 1);
   dsu.Union(1, 2);
-
+  dsu.Union(2, 3);
   dsu.Union(3, 4);
-  dsu.Union(4, 5);
-  dsu.Union(3, 5);
 
+  dsu.Union(5, 6);
   dsu.Union(6, 7);
   dsu.Union(7, 8);
+  dsu.Union(8, 9);
 
   dsu.Print(n);
 
-  std::cout << dsu.sameComponent(1, 1);
 
   return 0;
 }

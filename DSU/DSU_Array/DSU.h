@@ -9,6 +9,9 @@ class DSU
     int * id;
     int * size;
     int * lab;
+    int *minimum;
+    int *sum;
+    int *value;
   public:
     DSU(int n);
 
