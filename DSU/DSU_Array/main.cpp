@@ -7,21 +7,18 @@
 
 int main () {
 
-  int n = 10;
+  int n = 6;
 
   DSU dsu(n);
 
 //  dsu.Print(n);
 
-  dsu.Union(0, 1);
-  dsu.Union(1, 2);
-  dsu.Union(2, 3);
-  dsu.Union(3, 4);
-
-  dsu.Union(5, 6);
-  dsu.Union(6, 7);
-  dsu.Union(7, 8);
-  dsu.Union(8, 9);
+  dsu.leave(2);
+  dsu.leave(3);
+  dsu.leave(1);
+  std::cout << dsu.findNext(2) << '\n';
+  std::cout << dsu.findNext(3) << '\n';
+  std::cout << dsu.findNext(1) << '\n';
 
   dsu.Print(n);
 

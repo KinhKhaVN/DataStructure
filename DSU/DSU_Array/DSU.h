@@ -8,16 +8,15 @@ class DSU
   public:
     int * id;
     int * size;
-    int * lab;
-    int *minimum;
-    int *sum;
-    int *value;
+    int *MAX;
   public:
     DSU(int n);
 
     int Find(int i);
     void makeSet(int i);
     void Union(int p, int q);
+    void leave(int i);
+    int findNext(int i);
     void Print(int n);
     void printVertexInComponent(int root[], int rootCount, int n);
     
