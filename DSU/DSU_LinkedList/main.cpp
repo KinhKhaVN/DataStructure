@@ -15,7 +15,13 @@ int main () {
 
   dsu.Print();
 
-  std::cout << ( dsu.Find(1) == dsu.Find(4)) << '\n';
+  int countComponent = 0;
+
+  for (int i = 0; i < (int) dsu.nodes.size(); i++)
+    if (dsu.nodes[i]->tail->data == i) 
+      countComponent++;
+
+  std::cout << "Number or Components: " << countComponent << '\n';
 
 
   return 0;
