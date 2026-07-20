@@ -35,10 +35,24 @@ PROCEDURE
     A[index] := value;
   END;
 
+PROCEDURE
+  Remove(VAR A: array of integer; index: integer);
+  VAR
+    i: integer;
+  BEGIN
+
+    for i := index to n do
+      A[i] := A[i + 1];
+
+    A[n - 1] := 0;
+  END;
+
 BEGIN
 
   Print(A);
-  Insert(A, 3, 3);
+  Insert(A, 3, 2);
+  Print(A);
+  Remove(A, 2);
   Print(A);
 
 END.
