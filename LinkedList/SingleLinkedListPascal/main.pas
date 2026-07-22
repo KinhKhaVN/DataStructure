@@ -32,7 +32,7 @@ PROCEDURE
       Write(tmpNode^.value, ' ');
       tmpNode := tmpNode^.next;
     until tmpNode = nil;
-
+    Writeln;
   END;
 
 PROCEDURE
@@ -60,13 +60,45 @@ PROCEDURE
 
   END;
 
+PROCEDURE
+  InsertAfter(target, val: integer);
+  VAR
+    tmpNode: pNode;
+    newNode: pNode;
+  BEGIN
+    tmpNode := head;
+
+    while (tmpNode <> nil) AND 
+          (tmpNode^.value <> target)
+           do 
+          tmpNode := tmpNode^.next;
+
+    if tmpNode = nil then
+      BEGIN
+        Add(val);
+        exit;
+      END;
+
+    new(newNode);
+    newNode^.value := val;
+    newNode^.next := tmpNode^.next;
+    tmpNode^.next := newNode;
+    
+  END;
+
 BEGIN
   CLRSCR;
 
 
   Init;
-  for i := 1 to n do
-    Add(i);
-  Print;
 
+  Add(1);
+  Add(3);
+
+  InsertAfter(1, 2);
+  InsertAfter(4, 10);
+  InsertAfter(5, 20);
+  InsertAfter(10, 15);
+
+  Print;
 END.
