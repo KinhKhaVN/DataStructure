@@ -8,6 +8,7 @@ CONST
 VAR
   n: integer = 0;
   A: array[0..capacity - 1] of integer;
+  i, k: integer;
 
 PROCEDURE
   Swap(VAR a, b: integer);
@@ -46,6 +47,28 @@ PROCEDURE
       END;
   END;
 
+FUNCTION
+  Remove: integer;
+  VAR
+    i, j: integer;
+  BEGIN
+    Remove := A[0];
+    Swap(A[0], A[n - 1]);
+    dec(n);
+    i := 0;
+
+    while 2*i + 1 < n do
+      BEGIN
+        j := 2*i + 1;
+        if (2*i + 2 < n) AND (A[2*i + 2] < A[j]) then j := 2*i + 2;
+
+        if A[j] >= A[i] then break;
+        Swap(A[i], A[j]);
+        i := j;
+      END;
+
+  END;
+
 BEGIN
   CLRSCR;
 
@@ -58,4 +81,6 @@ BEGIN
   Insert(0);
   Print;
 
+  for i := 0 to n - 1 do
+    Writeln(Remove);
 END.
