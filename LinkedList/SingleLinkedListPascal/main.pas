@@ -10,23 +10,29 @@ TYPE
   END;
 
 VAR
-  head: pNode;
+  l1, l2: pNode;
   i: integer;
   n: integer = 10;
 
 PROCEDURE
-  Init;
+  Init(VAR head: pNode);
   BEGIN
+    new(head);
     head := nil;
   END;
 
 PROCEDURE
-  Print;
+  Print(head: pNode);
   VAR
     tmpNode: pNode;
   BEGIN
-    new(tmpNode);
     tmpNode := head;
+    if tmpNode = nil then 
+      BEGIN
+        Writeln('List is empty! Can not print');
+        exit;
+      END;
+    new(tmpNode);
 
     repeat
       Write(tmpNode^.value, ' ');
@@ -36,7 +42,7 @@ PROCEDURE
   END;
 
 PROCEDURE
-  Add(val: integer);
+  Add(VAR head:pNode; val: integer);
   VAR
     newNode: pNode;
     tmpNode: pNode;
@@ -61,7 +67,7 @@ PROCEDURE
   END;
 
 PROCEDURE
-  InsertAfter(target, val: integer);
+  InsertAfter(VAR head:pNode; target, val: integer);
   VAR
     tmpNode: pNode;
     newNode: pNode;
@@ -75,7 +81,7 @@ PROCEDURE
 
     if tmpNode = nil then
       BEGIN
-        Add(val);
+        Add(head, val);
         exit;
       END;
 
@@ -86,19 +92,45 @@ PROCEDURE
     
   END;
 
+PROCEDURE
+  Merge(VAR dest, src: pNode);
+  VAR
+    tmpNode: pNode;
+  BEGIN
+    if (dest = nil) AND (src = nil) then
+      BEGIN
+        Writeln('Both list are empty!');
+        exit;
+      END;
+    if dest = nil then 
+      BEGIN
+        Writeln('Destination is empty!');
+        exit;
+      END;
+
+    if src = nil then 
+      BEGIN
+        Writeln('Source is empty!');
+        exit;
+      END;
+
+    tmpNode := dest;
+
+    while tmpNode^.next <> nil do tmpNode := tmpNode^.next;
+
+    tmpNode^.next := src;
+
+  END;
+
 BEGIN
   CLRSCR;
 
 
-  Init;
+  Init(l1);
+  Init(l2);
 
-  Add(1);
-  Add(3);
 
-  InsertAfter(1, 2);
-  InsertAfter(4, 10);
-  InsertAfter(5, 20);
-  InsertAfter(10, 15);
+  Merge(l1, l2);
+  Print(l1);
 
-  Print;
 END.
