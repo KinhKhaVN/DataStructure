@@ -1,5 +1,4 @@
 PROGRAM LinkList;
-
 USES crt;
 
 TYPE
@@ -32,7 +31,6 @@ PROCEDURE
         Writeln('List is empty! Can not print');
         exit;
       END;
-    new(tmpNode);
 
     repeat
       Write(tmpNode^.value, ' ');
@@ -128,7 +126,13 @@ BEGIN
 
   Init(l1);
   Init(l2);
+  Add(l1, 1);
+  Add(l1, 2);
+  Add(l1, 3);
 
+  Add(l2, 5);
+  Add(l2, 6);
+  Add(l2, 7);
 
   Merge(l1, l2);
   Print(l1);
