@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -g -O2 -Wall -Wextra -std=c++11
 
-SHELL := powershell.exe
+#SHELL := powershell.exe
 
 
 all: main.exe main.o DSU.o
