@@ -31,14 +31,24 @@ PROCEDURE
     i: integer;
   BEGIN
     for i := 0 to length(A) - 1 do
-      Write(A[i]:2);
+      Write(A[i], ' '); 
     Writeln;
   END;
 
 PROCEDURE
   Put(VAR A: mang; CONST k, v: integer);
+  VAR
+    i: integer;
   BEGIN
-    A[H(k, length(A))] := v;
+    i := H(k, length(A));
+
+    while A[i] <> -1 do
+      BEGIN
+        Writeln('A[',i,']', ' already has value', A[i]);
+        i := (i + 1) mod length(A);
+      END;
+    Writeln('Put value to A[', i, ']'); 
+    A[i] := v;  
   END;
 
 FUNCTION
@@ -53,7 +63,9 @@ BEGIN
 
   Put(A, 32, 5);
   Put(A, 33, 5);
-  Put(A, 34+1, 5);
+  Put(A, 34, 5);
+  Put(A, 32, 6);
+  Put(A, 32, 10);
 
   Print(A);
 
